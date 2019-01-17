@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * Magento
+ *
+ * @category   Zibal
+ * @package    Zibal
+ * @copyright  Copyright (c) 2019 zibal.ir (https://zibal.ir/)
+ */
+
+echo $this->getMethod()->getTitle() . '<br/>';
+
+if ($this->getInfo()->getLastTransId() == '') {
+	echo $this->__('Payment has not been processed yet.') . '<br/>';
+}
+else {
+	echo $this->__('zibal.ir Transaction ID: %s', $this->htmlEscape($this->getInfo()->getLastTransId())) . '<br/>';
+}

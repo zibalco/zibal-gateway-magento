@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Magento
+ *
+ * @category   Zibal
+ * @package    Zibal
+ * @copyright  Copyright (c) 2019 zibal.ir (https://zibal.ir/)
+ */
+?>
+
+<center>
+    <p><?php echo $this->__('Please wait! You will be redirected to zibal.ir') ?></p>
+</center>
+<form id="zibal" action="<?php echo $this->getFormAction(); ?>" method="POST">
+<?php if (is_array($this->getFormData())) : ?>
+    <?php foreach ($this->getFormData() as $name => $value) : ?>
+        <input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/>
+    <?php endforeach; ?>
+<?php endif; ?>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+    var paymentform = document.getElementById('zibal');
+    window.onload = paymentform.submit();
+//]]>
+</script>

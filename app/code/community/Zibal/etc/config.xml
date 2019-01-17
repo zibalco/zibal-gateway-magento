@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * @category   Zibal
+ * @package    Zibal
+ * @copyright  Copyright (c) 2019 zibal.ir (https://zibal.ir/)
+ */
+-->
+<config>
+	<modules>
+		<Zibal>
+			<version>1.0.0</version>
+		</Zibal>
+	</modules>
+
+    <global>
+        <models>
+            <zibal>
+                <class>Zibal_Model</class>
+            </zibal>
+        </models>
+
+        <helpers>
+            <zibal>
+                <class>Zibal_Helper</class>
+            </zibal>
+        </helpers>
+
+        <resources>
+            <zibal_setup>
+                <setup>
+                    <module>Zibal</module>
+                </setup>
+
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </zibal_setup>
+	
+            <zibal_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </zibal_write>
+	
+            <zibal_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </zibal_read>
+        </resources>
+
+        <blocks>
+            <zibal>
+				<class>Zibal_Block</class>
+			</zibal>
+        </blocks>
+    </global>
+
+    <frontend>
+        <secure_url>
+            <zibal_redirect>/zibal/redirect</zibal_redirect>
+        </secure_url>	
+
+        <routers>
+            <zibal>
+                <use>standard</use>
+                <args>
+                    <module>Zibal</module>
+                    <frontName>zibal</frontName>
+                </args>
+            </zibal>
+        </routers>	
+	
+        <translate>
+            <modules>
+                <Zibal>
+                    <files>
+                        <default>Zibal.csv</default>
+                    </files>
+                </Zibal>
+            </modules>
+        </translate>	
+
+        <layout>
+            <updates>
+                <zibal>
+                    <file>zibal.xml</file>
+                </zibal>
+            </updates>
+        </layout>
+    </frontend>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Zibal>
+                    <files>
+                        <default>Zibal.csv</default>
+                    </files>
+                </Zibal>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <default>
+        <payment>
+            <zibal>
+                <active>0</active>
+                <model>zibal/zibal</model>
+				<order_status>1</order_status>
+                <second_order_status>3</second_order_status>
+                <allowspecific>0</allowspecific>
+                <title>zibal.ir Online Payment</title>
+				<gateway>0</gateway>
+				<payer_Id>0</payer_Id>
+				<pgwpay_url>0</pgwpay_url>
+            </zibal>
+        </payment>
+    </default>
+	
+</config>
