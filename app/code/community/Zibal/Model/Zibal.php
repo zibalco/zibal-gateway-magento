@@ -42,7 +42,8 @@ class Zibal_Model_zibal extends Mage_Payment_Model_Method_Abstract
 
     public function getOrderPlaceRedirectUrl()
     {
-        return Mage::getUrl('zibal/redirect/redirect', array('_secure' => true));
+          return Mage::getBaseUrl().'zibal/redirect/redirect/';
+     //   return Mage::getUrl('zibal/redirect/redirect', array('_secure' => true));
     }
 
     public function capture(Varien_Object $payment, $amount)
@@ -70,7 +71,7 @@ class Zibal_Model_zibal extends Mage_Payment_Model_Method_Abstract
 
             $apiKey = Mage::helper('core')->decrypt($this->getConfigData('terminal_Id'));
             $amount = intval($this->getOrder()->getGrandTotal());
-            $callback = Mage::getBaseUrl().'/zibal/redirect/success/';
+            $callback = Mage::getBaseUrl().'zibal/redirect/success/';
 
             $mobile = $this->getOrder()->getShippingAddress()->getTelephone();
 
@@ -121,26 +122,6 @@ class Zibal_Model_zibal extends Mage_Payment_Model_Method_Abstract
         return $params;
     }
 
-    private function common($url, $params)
-    {
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
-
-        $response = curl_exec($ch);
-        $error = curl_errno($ch);
-
-        curl_close($ch);
-
-        $output = $error ? false : json_decode($response);
-
-        return $output;
-    }
 
     /**
      * connects to zibal's rest api
