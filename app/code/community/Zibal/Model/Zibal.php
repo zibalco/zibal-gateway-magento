@@ -70,11 +70,17 @@ class Zibal_Model_zibal extends Mage_Payment_Model_Method_Abstract
             Mage::getSingleton('core/session')->setOrderId(Mage::helper('core')->encrypt($this->getOrder()->getRealOrderId()));
 
             $apiKey = Mage::helper('core')->decrypt($this->getConfigData('terminal_Id'));
-            $amount = intval($this->getOrder()->getGrandTotal());
+            //$amount = intval($this->getOrder()->getGrandTotal());
             $callback = Mage::getBaseUrl().'zibal/redirect/success/';
 
             $mobile = $this->getOrder()->getShippingAddress()->getTelephone();
 
+
+	 if ($this->getConfigData('use_store_currency')) {
+            $amount      = number_format($this->getOrder()->getGrandTotal(),0,'.','');
+        } else {
+            $amount      = number_format($this->getOrder()->getBaseGrandTotal(),0,'.','');
+        }
 
             $params = array(
 

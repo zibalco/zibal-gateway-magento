@@ -41,11 +41,16 @@ class Zibal_Block_Success extends Mage_Core_Block_Template
 
                 $result = self::postToZibal('verify', $params);
 
+
                 if ($result && isset($result->result) && $result->result == 100) {
 
                     $cardNumber = isset($_POST['cardNumber']) ? $_POST['cardNumber'] : null;
 
-                    $amount = intval($order->getGrandTotal());
+		if ($this->getConfigData('use_store_currency')) {
+            		$amount      = intval($this->getOrder()->getGrandTotal());
+        	} else {
+            		$amount      = intval($this->getOrder()->getBaseGrandTotal());
+        	}
 
                     if ($amount == $result->amount) {
 
